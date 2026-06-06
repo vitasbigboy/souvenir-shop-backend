@@ -21,6 +21,11 @@ class Product(models.Model):
     material = models.CharField(max_length=255, blank=True)
     color = models.CharField(max_length=100, blank=True)
 
+    characteristics = models.JSONField(default=list, blank=True)
+    tags = models.JSONField(default=list, blank=True)
+    gallery = models.JSONField(default=list, blank=True)
+    colors = models.JSONField(default=list, blank=True)
+
     in_stock = models.BooleanField(default=True)
     stock_quantity = models.PositiveIntegerField(default=0)
 
