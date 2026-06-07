@@ -1,9 +1,14 @@
 # Django
 *.pyc
-__pycache__/
+pycache/
 db.sqlite3
+data/db.sqlite3
+
+# User files
 /media/
 /static/
+media/
+staticfiles/
 
 # Virtual environment
 venv/
