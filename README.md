@@ -14,51 +14,53 @@ Backend часть дипломного проекта интернет-мага
 
 ### 1. Клонировать репозиторий
 
-bash git clone <repository_url> cd souvenir-shop-backend 
+git clone <repository_url>
+cd souvenir-shop-backend 
 
 ### 2. Создать виртуальное окружение
 
-bash python -m venv venv source venv/bin/activate 
+python -m venv venv
+source venv/bin/activate 
 
 Для Windows:
 
-bash venv\Scripts\activate 
+venv\Scripts\activate 
 
 ### 3. Установить зависимости
 
-bash pip install -r requirements.txt 
+pip install -r requirements.txt 
 
 ### 4. Создать файл .env
 
 Скопировать пример:
 
-bash cp .env.example .env 
+cp .env.example .env 
 
 При необходимости изменить значения переменных.
 
 ### 5. Выполнить миграции
 
-bash python manage.py migrate 
+python manage.py migrate 
 
 ### 6. Создать администратора
 
-bash python manage.py createsuperuser 
+python manage.py createsuperuser 
 
 ### 7. Заполнить тестовые данные
 
-bash python manage.py seed_products 
+python manage.py seed_products 
 
 ### 8. Запустить сервер
 
-bash python manage.py runserver 
+python manage.py runserver 
 
 Backend будет доступен по адресу:
 
-text http://127.0.0.1:8000 
+http://127.0.0.1:8000 
 
 Административная панель:
 
-text http://127.0.0.1:8000/admin 
+http://127.0.0.1:8000/admin 
 
 ## Переменные окружения
 
@@ -78,7 +80,7 @@ text http://127.0.0.1:8000/admin
 
 База данных SQLite хранится в директории:
 
-text data/db.sqlite3 
+data/db.sqlite3 
 
 Каталог data/ подготовлен для дальнейшего подключения Docker Volume.
 
@@ -86,4 +88,7 @@ text data/db.sqlite3
 
 Основные эндпоинты:
 
-text GET    /api/products/ GET    /api/categories/ POST   /api/orders/ GET    /api/feedback/ 
+- GET  /api/products/
+- GET  /api/categories/
+- POST /api/orders/
+- GET  /api/feedback/
