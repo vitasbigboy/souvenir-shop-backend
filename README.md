@@ -14,45 +14,45 @@ Backend часть дипломного проекта интернет-мага
 
 ### 1. Клонировать репозиторий
 
-git clone <repository_url>
-cd souvenir-shop-backend 
+`git clone <repository_url>`
+`cd souvenir-shop-backend`
 
 ### 2. Создать виртуальное окружение
 
-python -m venv venv
-source venv/bin/activate 
+`python -m venv venv`
+`source venv/bin/activate`
 
 Для Windows:
 
-venv\Scripts\activate 
+`venv\Scripts\activate`
 
 ### 3. Установить зависимости
 
-pip install -r requirements.txt 
+`pip install -r requirements.txt`
 
 ### 4. Создать файл .env
 
 Скопировать пример:
 
-cp .env.example .env 
+`cp .env.example .env`
 
 При необходимости изменить значения переменных.
 
 ### 5. Выполнить миграции
 
-python manage.py migrate 
+`python manage.py migrate`
 
 ### 6. Создать администратора
 
-python manage.py createsuperuser 
+`python manage.py createsuperuser`
 
 ### 7. Заполнить тестовые данные
 
-python manage.py seed_products 
+`python manage.py seed_products`
 
 ### 8. Запустить сервер
 
-python manage.py runserver 
+`python manage.py runserver`
 
 Backend будет доступен по адресу:
 
@@ -80,7 +80,7 @@ http://127.0.0.1:8000/admin
 
 База данных SQLite хранится в директории:
 
-data/db.sqlite3 
+`data/db.sqlite3`
 
 Каталог data/ подготовлен для дальнейшего подключения Docker Volume.
 
