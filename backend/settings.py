@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/6.0/ref/settings/
 import os
 from pathlib import Path
 from dotenv import load_dotenv
+from django.core.exceptions import ImproperlyConfigured
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -28,12 +29,20 @@ def env_list(name, default=''):
     return [item.strip() for item in value.split(',') if item.strip()]
 
 
+def env_path(name, default):
+    value = os.getenv(name) or default
+    path = Path(value)
+    return path if path.is_absolute() else BASE_DIR / path
+
+
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/6.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.getenv('SECRET_KEY', 'django-insecure-dev-secret-key')
-DEBUG = env_bool('DEBUG', True)
+SECRET_KEY = os.getenv('SECRET_KEY')
+if not SECRET_KEY:
+    raise ImproperlyConfigured('SECRET_KEY environment variable is required.')
+DEBUG = env_bool('DEBUG', False)
 ALLOWED_HOSTS = env_list('ALLOWED_HOSTS', '127.0.0.1,localhost')
 
 
@@ -54,6 +63,7 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -85,12 +95,7 @@ WSGI_APPLICATION = 'backend.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/6.0/ref/settings/#databases
 
-SQLITE_PATH = os.getenv('SQLITE_PATH', 'data/db.sqlite3')
-SQLITE_DB_PATH = Path(SQLITE_PATH)
-
-if not SQLITE_DB_PATH.is_absolute():
-    SQLITE_DB_PATH = BASE_DIR / SQLITE_DB_PATH
-
+SQLITE_DB_PATH = env_path('SQLITE_PATH', 'data/db.sqlite3')
 SQLITE_DB_PATH.parent.mkdir(parents=True, exist_ok=True)
 
 DATABASES = {
@@ -136,10 +141,10 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/6.0/howto/static-files/
 
 STATIC_URL = 'static/'
-STATIC_ROOT = BASE_DIR / os.getenv('STATIC_ROOT', 'staticfiles')
+STATIC_ROOT = env_path('STATIC_ROOT', 'staticfiles')
 
 MEDIA_URL = '/media/'
-MEDIA_ROOT = BASE_DIR / os.getenv('MEDIA_ROOT', 'media')
+MEDIA_ROOT = env_path('MEDIA_ROOT', 'media')
 
 CORS_ALLOWED_ORIGINS = env_list(
     'CORS_ALLOWED_ORIGINS',
